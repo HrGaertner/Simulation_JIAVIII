@@ -2,12 +2,13 @@
 import random
 
 class Car():
-    def __init__(self, ID, streets, max_v=120):  # May be expanded
+    def __init__(self, ID, streets, max_v=120, current="1721713218"
+):  # May be expanded
         self.id = ID
         self.distance = 0.0
-        self.current = 'A'  # First Street
-        self.next = 'B'  # Second Street
+        self.current = current  # First Street
         self.streets = streets
+        self.next = random.choice(list(self.streets[self.current].keys()))  # Second Street
         self.streets[self.current][self.next]['cars'][self.next].append(self)
         self.max_v = max_v
         self.v = 0
@@ -17,8 +18,13 @@ class Car():
 
             self.streets[self.current][self.next]["cars"][self.next].remove(self)  # Deletes this car from the street
             self.current = self.next
-            self.next = random.choice(list(self.streets[self.current].keys()))  # Selects randomly a new street
-            self.streets[self.current][self.next]['cars'][self.next].append(self)  # Appends this car to the current street
+            while True: #Against oneway roads
+                self.next = random.choice(list(self.streets[self.current].keys()))  # Selects randomly a new street
+                try:
+                    self.streets[self.current][self.next]['cars'][self.next].append(self)  # Appends this car to the current street
+                except:
+                    continue
+                break
             self.distance = 0.0
         else:
             if not self.streets[self.current][self.next]['cars'][self.next] == [self]:  # Checks whether there is another car on the street

@@ -8,7 +8,7 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
         cars.append(a)
     return cars
 
-streets = osm_parse.create_streetnetwork()  # Creates streetnetwork
+streets = osm_parse.create_streetnetwork("JiaVII_Sep19.osm")  # Creates streetnetwork
 car = create_cars(5)  # Creates cars
 
 while True:  # Updates the simulation
