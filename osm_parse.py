@@ -134,21 +134,21 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
                 cars={}
                 for i in w.nds:
                     cars[i] = []
-                G.add_path(w.nds, id=w.id, max_v = 50/3.6, length = 14.0, cars = cars)#Length
+                G.add_path(w.nds, id=w.id, max_v = 50/3.6, cars = cars)#Length
             else:
                 # BOTH DIRECTION
                 cars={}
                 for i in w.nds:
                     cars[i.id] = []
-                G.add_path(w.nds, id=w.id)
-                G.add_path(w.nds[::-1], id=w.id, cars=cars)
+                G.add_path(w.nds, max_v = 50/3.6, id=w.id, cars=cars)
+                G.add_path(w.nds[::-1], max_v = 50/3.6, id=w.id, cars=cars)
         else:
             # BOTH DIRECTION
             cars={}
             for i in w.nds:
                 cars[i] = []
-            G.add_path(w.nds, id=w.id)
-            G.add_path(w.nds[::-1], id=w.id, cars=cars)
+            G.add_path(w.nds, id=w.id, max_v = 50/3.6, cars=cars)
+            G.add_path(w.nds[::-1], id=w.id, max_v = 50/3.6, cars=cars)
 
     ## Complete the used nodes' information
     for n_id in G.nodes():
@@ -156,11 +156,11 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
         G.node[n_id]['lat'] = n.lat
         G.node[n_id]['lon'] = n.lon
         G.node[n_id]['id'] = n.id
-
+    distance_sum = 0
     ## Estimate the length of each way
     for u,v,d in G.edges(data=True):
         distance = haversine(G.node[u]['lon'], G.node[u]['lat'], G.node[v]['lon'], G.node[v]['lat'], unit_m = True) # Give a realistic distance estimation (neither EPSG nor projection nor reference system are specified)
-
+        distance_sum += distance
         G.add_weighted_edges_from([( u, v, distance)], weight='length')
 
     return G
