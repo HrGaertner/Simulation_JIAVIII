@@ -1,0 +1,1 @@
+Auto<CarID> = [[<timestamp>, <posX>, <posY>], [...]]
