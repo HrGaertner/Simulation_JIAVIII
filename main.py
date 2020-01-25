@@ -1,5 +1,7 @@
 import time
-import osm_parse, car #Other Project files
+import osm_parse  # Other Project files
+import car        # Other Project files
+
 
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
     cars = []
@@ -7,6 +9,7 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
         a = car.Car(i, streets)
         cars.append(a)
     return cars
+
 
 streets = osm_parse.create_streetnetwork("JiaVII_Sep19.osm")  # Creates streetnetwork
 car = create_cars(5)  # Creates cars
