@@ -1,4 +1,4 @@
-#Class Car will be imported and used in main.py
+#Class Car will be imported and used in run_simulation.py
 import random
 
 class Car():

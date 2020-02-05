@@ -1,0 +1,2 @@
+flask-socketio
+networkx==2.3
