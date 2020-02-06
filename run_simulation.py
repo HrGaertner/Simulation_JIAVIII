@@ -4,7 +4,7 @@ import car        # Other Project files
 import queue
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-from multiprocessing import Process
+import threading
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -24,11 +24,14 @@ cars = create_cars(car_amount)  # Creates cars
 
 all_lats = queue.Queue()
 all_lons = queue.Queue()
-def run(all_lats, all_lons):
-    try:
+all_ids = queue.Queue()
+def run(all_lats, all_lons, socketio):
+    #try:
+        print("TEST")
         while True:  # Updates the simulation
             lats = []
             lons = []
+            ids = []
             for c in cars:
                 #if c.id == 0:
                 #     print(str(c.id) + ' ' + str(c.distance) + ' ' + str(c.current))
@@ -41,21 +44,33 @@ def run(all_lats, all_lons):
                 progress = c.distance / length
                 lats.append(latA + (latB - latA) * progress)
                 lons.append(lonA + (lonB - lonA) * progress)
+                ids.append(c.id)
                 c.drive()
                 # time.sleep(0.3)
-            all_lats = lats
-            all_lons = lons
-    except KeyboardInterrupt:
-        pass
+            all_lats.empty()
+            all_lons.empty()
+            all_ids.empty()
+            all_lats.put(lats)
+            all_lons.put(lons)
+            all_ids.put(ids)
+            socketio.emit("update", (lats, lons, ids))
+    #except KeyboardInterrupt:
+    #    pass
 
-@app.route(‘/')
+@app.route('/')
 def index():
     return render_template("index.html")
 
+@socketio.on('get_data')
+def update(message):
+    return list(all_lats), list(all_lons), list(all_ids)
+
+def func(app):
+    socketio.run(app)#, debug=True)
 
 if __name__ == '__main__':
-    thread1 = threading.Thread(target=run, args=(all_lons, all_lats))
-    thread2 = threading.Thread(target=, args=(app))
+    thread1 = threading.Thread(target=run, args=(all_lons, all_lats, socketio))
+    thread2 = threading.Thread(target=func, args=(app,))
     thread1.start()
     thread2.start()
-    socketio.run(app)
+    thread2.join()
