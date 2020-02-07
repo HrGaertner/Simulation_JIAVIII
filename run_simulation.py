@@ -26,8 +26,7 @@ all_lats = queue.Queue()
 all_lons = queue.Queue()
 all_ids = queue.Queue()
 def run(all_lats, all_lons, socketio):
-    #try:
-        print("TEST")
+    try:
         while True:  # Updates the simulation
             lats = []
             lons = []
@@ -46,16 +45,16 @@ def run(all_lats, all_lons, socketio):
                 lons.append(lonA + (lonB - lonA) * progress)
                 ids.append(c.id)
                 c.drive()
-                # time.sleep(0.3)
+                time.sleep(1)
             all_lats.empty()
             all_lons.empty()
             all_ids.empty()
             all_lats.put(lats)
             all_lons.put(lons)
             all_ids.put(ids)
-            socketio.emit("update", (lats, lons, ids))
-    #except KeyboardInterrupt:
-    #    pass
+            socketio.emit("update", (lats, lons, ids), broadcast="True")
+    except KeyboardInterrupt:
+        print("error")
 
 @app.route('/')
 def index():

@@ -38,6 +38,15 @@
         socket.emit('my event', {data: 'I\'m connected!'});
     });
 
+	socket.on('update', function (lats, lons, ids) {
+    	console.log(lats[0])
+    	mymap.eachLayer(function (layer) {
+    		mymap.removeLayer(layer);
+		});
+		for (var i = 0; i <= lats.length-1; i++) {
+  			L.marker([lats[i], lons[i]], title=ids[i]).addTo(mymap);
+		}
+ 	});
 
 
 
