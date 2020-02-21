@@ -1,9 +1,8 @@
-#Class Car will be imported and used in run_simulation.py
+#Class Car will be imported and used in main.py
 import random
 
 class Car():
-    def __init__(self, ID, streets, max_v=120, current="1721713218"
-):  # May be expanded
+    def __init__(self, ID, streets, max_v=120, current="1721713218"):  # May be expanded
         self.id = ID
         self.distance = 0.0
         self.current = current  # First Street
