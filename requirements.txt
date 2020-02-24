@@ -1,3 +1,2 @@
-flask-socketio
+flask
 networkx==2.3
-eventlet
