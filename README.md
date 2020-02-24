@@ -1,4 +1,6 @@
 # Simulation_JIAVIII
 Developing the simulation for the JIAVIII Project
 
-[Hier](https://tkardi.ee/writeup/post/2019/04/27/building-a-totally-useless-map/) ist ein Link den wir uns merken sollten
+The Dataformat is defined by [GeoJSON](https://de.wikipedia.org/wiki/GeoJSON)
+
+because we are using [leaflet-realtime](https://github.com/perliedman/leaflet-realtime)
