@@ -9,10 +9,5 @@ var realtime = L.realtime({
     crossOrigin: true,
     type: 'json'
 }, {
-    interval: 3 * 1000
+    interval: 500
 }).addTo(map);
-
-
-//realtime.on('update', function() {
-    //map.fitBounds(realtime.getBounds(), {maxZoom: 3});
-//});

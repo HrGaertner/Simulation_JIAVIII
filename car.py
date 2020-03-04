@@ -14,11 +14,16 @@ class Car():
 
     def drive(self):  # Defines how the car drives and when it changes the street
         if self.streets[self.current][self.next]["length"] <= self.distance:  # if the car reached the end of its current street, then change it
-
-            self.streets[self.current][self.next]["cars"][self.next].remove(self)  # Deletes this car from the street
+            try:
+                self.streets[self.current][self.next]["cars"][self.next].remove(self)  # Deletes this car from the street
+            except:
+                print("I am confused")
+            former_current = self.current
             self.current = self.next
             while True: #Against oneway roads
                 self.next = random.choice(list(self.streets[self.current].keys()))  # Selects randomly a new street
+                if self.next == former_current:
+                    continue
                 try:
                     self.streets[self.current][self.next]['cars'][self.next].append(self)  # Appends this car to the current street
                 except:

@@ -1,7 +1,6 @@
 import time
 import osm_parse  # Other Project files
 import car        # Other Project files
-import pickle
 
 
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
@@ -32,13 +31,13 @@ def tick():
 
         coord["coordinates"].append([lonC, latC])
         c.drive()
-        #time.sleep(1/65)
     return coord
 
 if __name__ == "__main__":
     try:
         while True:  # Updates the simulation
             data = tick()
+            time.sleep(1/3)
             print(str(cars[0].id), str(cars[0].distance), str(cars[0].current))
     except KeyboardInterrupt:
         pass
