@@ -151,11 +151,22 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
             G.add_path(w.nds[::-1], id=w.id, max_v = 50/3.6, cars=cars)
 
     ## Complete the used nodes' information
+    bus_stops = {"type": "MultiPoint", "coordinates": [], "names": []}
+
     for n_id in G.nodes():
         n = osm.nodes[n_id]
         G.node[n_id]['lat'] = n.lat
         G.node[n_id]['lon'] = n.lon
         G.node[n_id]['id'] = n.id
+
+        if "public_transport" in n.tags:
+            if n.tags["public_transport"] == "stop_position":
+                G.node[n_id]["bus"] = True
+                bus_stops["coordinates"].append([n.lon, n.lat])
+                if "name" in n.tags:
+                    bus_stops["names"].append(n.tags["name"])
+                else:
+                    bus_stops["names"].append("unknown")
     distance_sum = 0
     ## Estimate the length of each way
     for u,v,d in G.edges(data=True):
@@ -163,7 +174,11 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
         distance_sum += distance
         G.add_weighted_edges_from([( u, v, distance)], weight='length')
 
-    return G
+    for n_id in G.nodes():
+        n = osm.nodes[n_id]
+
+
+    return G, bus_stops
 
 
 class Node:

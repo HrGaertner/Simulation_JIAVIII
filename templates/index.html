@@ -10,7 +10,9 @@
 </head>
 <body>
     <h1>Unsere JIA Demo</h1>
+    <input type="checkbox", id="locate_button">Zeige meine Position</input>
     <div id="map"></div>
+    <script>var bus_stops = {{ bus_stops|tojson }};</script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

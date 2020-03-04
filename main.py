@@ -12,7 +12,7 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
 
 car_amount = 5
 
-streets = osm_parse.create_streetnetwork("JiaVII_Sep19.osm")  # Creates streetnetwork
+streets, bus_stops = osm_parse.create_streetnetwork("JiaVII_Sep19.osm")  # Creates streetnetwork
 cars = create_cars(car_amount)  # Creates cars
 
 def tick():
@@ -34,10 +34,10 @@ def tick():
     return coord
 
 if __name__ == "__main__":
-    try:
+    #try:
         while True:  # Updates the simulation
             data = tick()
             time.sleep(1/3)
             print(str(cars[0].id), str(cars[0].distance), str(cars[0].current))
-    except KeyboardInterrupt:
-        pass
+    #except KeyboardInterrupt:
+    #    pass
