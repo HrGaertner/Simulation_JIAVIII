@@ -1,7 +1,7 @@
 import time
 import osm_parse  # Other Project files
 import car        # Other Project files
-
+import xml.etree.ElementTree as ET
 
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
     cars = []
@@ -12,8 +12,16 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
 
 car_amount = 5
 
-streets, bus_stops = osm_parse.create_streetnetwork("JiaVII_Sep19.osm")  # Creates streetnetwork
+file = "JiaVII_Sep19.osm"
+
+streets, bus_stops = osm_parse.create_streetnetwork(file)  # Creates streetnetwork
 cars = create_cars(car_amount)  # Creates cars
+
+tree = ET.parse(file)
+root = tree.getroot()
+for child in root:
+    if child.tag == "bounds":
+        outer__coord = child.attrib
 
 def tick():
     coord = {"type": "MultiPoint", "coordinates": []}
