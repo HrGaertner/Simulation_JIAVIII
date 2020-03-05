@@ -23,6 +23,11 @@ for child in root:
     if child.tag == "bounds":
         outer__coord = child.attrib
 
+center = {}
+center["lat"] = float(outer__coord["minlat"]) + (float(outer__coord["maxlat"]) - float(outer__coord["minlat"]))
+center["lon"] = float(outer__coord["minlon"]) + (float(outer__coord["maxlon"]) - float(outer__coord["minlon"
+                                                                                                   ""]))
+
 def tick():
     coord = {"type": "MultiPoint", "coordinates": []}
     for c in cars:

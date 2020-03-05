@@ -2,7 +2,8 @@ from flask import Flask, render_template
 import main
 import threading
 import time
-import json
+
+print(main.bus_stops)
 
 # variables that are accessible from anywhere
 data = {}
@@ -22,7 +23,6 @@ def index():
 
 @app.route("/update")
 def update():
-    print(data)
     return data
 
 if __name__ == "__main__":

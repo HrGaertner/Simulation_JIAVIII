@@ -6,22 +6,23 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function onEachFeature(feature, layer) {
+    alert(feature.names[2]);
     layer.bindPopup(feature.name);
 }
 
 var geojsonMarkerOptions = {
     radius: 8,
     fillColor: "#32CD32",
-    color: "#000",
+    color: "#32CD32",
     weight: 1,
     opacity: 1,
     fillOpacity: 0.8,
-    onEachFeature: onEachFeature
 }
 
 L.geoJSON(bus_stops, {
     pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);}
+        return L.circleMarker(latlng, geojsonMarkerOptions);},
+    onEachFeature: onEachFeature
 }).addTo(map);
 
 var realtime = L.realtime({

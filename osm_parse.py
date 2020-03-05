@@ -162,9 +162,9 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
         if "public_transport" in n.tags:
             if n.tags["public_transport"] == "stop_position":
                 G.node[n_id]["bus"] = True
-                bus_stops["coordinates"].append([n.lon, n.lat])
                 if "name" in n.tags:
                     bus_stops["names"].append(n.tags["name"])
+                    bus_stops["coordinates"].append([n.lon, n.lat, n.tags["name"]])
                 else:
                     bus_stops["names"].append("unknown")
     distance_sum = 0
