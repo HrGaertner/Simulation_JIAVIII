@@ -5,8 +5,10 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors <img src="/static/images/circle.png">'
 }).addTo(map);
 
+alert(bus_stops);
+
 function onEachFeature(feature, layer) {
-    alert(feature.names[2]);
+    alert(feature.name);
     layer.bindPopup(feature.name);
 }
 
@@ -19,7 +21,7 @@ var geojsonMarkerOptions = {
     fillOpacity: 0.8,
 }
 
-L.geoJSON(bus_stops, {
+L.geoJSON(bus_stops[4], {
     pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);},
     onEachFeature: onEachFeature

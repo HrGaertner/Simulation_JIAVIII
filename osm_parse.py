@@ -152,6 +152,8 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
 
     ## Complete the used nodes' information
     bus_stops = {"type": "MultiPoint", "coordinates": [], "names": []}
+    bus_stops = []
+    example = {"type": "Feature", "name": "test", "geometry": {"type": "Point", "coordinates": []}}
 
     for n_id in G.nodes():
         n = osm.nodes[n_id]
@@ -160,13 +162,18 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
         G.node[n_id]['id'] = n.id
 
         if "public_transport" in n.tags:
-            if n.tags["public_transport"] == "stop_position":
+            if n.tags["public_transport"] == "stop_position": #This could also be the tram but there is mostly also bus traffic
                 G.node[n_id]["bus"] = True
-                if "name" in n.tags:
-                    bus_stops["names"].append(n.tags["name"])
-                    bus_stops["coordinates"].append([n.lon, n.lat, n.tags["name"]])
+                example["geometry"]["coordinates"] = [n.lon, n.lat]
+                #bus_stops["coordinates"].append([n.lon, n.lat, n.tags["name"]])
+                if "name" in n.tags:#Some bus_stops do not have name in this file
+                    example["name"] = n.tags["name"]
+                    #bus_stops["names"].append(n.tags["name"])
                 else:
-                    bus_stops["names"].append("unknown")
+                    example["name"] = "unkown"
+                    #bus_stops["names"].append("unknown")
+                bus_stops.append(example)
+                example = {"type": "Feature", "name": "test", "geometry": {"type": "Point", "coordinates": []}}
     distance_sum = 0
     ## Estimate the length of each way
     for u,v,d in G.edges(data=True):
