@@ -10,7 +10,7 @@ __version__ = "0.5 Alpha - 'Coins in a fountain'"
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
     cars = []
     for i in range(car_number):
-        a = car.Car(i, streets)
+        a = car.Car(i, streets, 1/3)
         cars.append(a)
     return cars
 

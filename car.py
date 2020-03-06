@@ -1,12 +1,13 @@
 #Class Car will be imported and used in main.py
 import random
+import math
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
 __version__ = "0.5 Alpha - 'Coins in a fountain'"
 
 class Car():
-    def __init__(self, ID, streets, max_v=120, current=None):  # May be expanded
+    def __init__(self, ID, streets, tick_waiting, current=None, s_0=2, T=1,5, a=0,3, b=3,0):  # May be expanded
         if current == None:
             current = random.choice(list(streets.nodes.keys()))
         self.id = ID
@@ -15,8 +16,11 @@ class Car():
         self.streets = streets
         self.next = random.choice(list(self.streets[self.current].keys()))  # Second Street
         self.streets[self.current][self.next]['cars'][self.next].append(self)
-        self.max_v = max_v
-        self.v = 0
+        self.v = 0.0
+        self.s_0 = s_0 #Minimum bumper distant
+        self.T = T/tick_waiting# Desired safety time headway T when following other vehicles
+        self.a = a/(tick_waiting**2)# Acceleration a in every-day traffic
+        self.b = b/(tick_waiting**2)# Comfortable (braking) deceleration b in every-day traffic
 
     def drive(self):  # Defines how the car drives and when it changes the street
         if self.streets[self.current][self.next]["length"] <= self.distance:  # if the car reached the end of its current street, then change it
@@ -37,6 +41,7 @@ class Car():
                 break
             self.distance = 0.0
         else:
+            a_free = (self.v / float(self.streets[self.current][self.next]["max_v"])) ** 4  # See at the paper of Martin Treiber
             if not self.streets[self.current][self.next]['cars'][self.next] == [self]:  # Checks whether there is another car on the street
                 next_car = False
                 event = False
@@ -46,13 +51,15 @@ class Car():
                     if self == c:
                         event = True
                 if not next_car:
-                    self.distance += 1
+                    self.distance += self.v + a_free
                 else:
+                    gap_s = next_car.distance - self.distance
                     delta_v = self.v - next_car.v
-                    
+                    a_int = ((self.s_0*max(0, (self.v*self.T + (self.v*delta_v/2*math.square(self.a*self.b)))))/gap_s)**2# See at the paper of Martin Treiber
+
                     if self.distance + 1 >= next_car.distance:  # Looks whether the next car is more than one unit away
                         pass
                     else:
                         self.distance += 1
             else:
-                self.distance += 1
+                self.distance += self.v + a_free
