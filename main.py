@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
+__version__ = "0.5 Alpha"
 
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
     cars = []

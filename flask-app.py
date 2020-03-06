@@ -5,6 +5,7 @@ import time
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
+__version__ = "0.5 Alpha"
 
 # variables that are accessible from anywhere
 data = {}
