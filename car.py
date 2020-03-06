@@ -4,7 +4,7 @@ import math
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
-__version__ = "0.5 Alpha - 'Coins in a fountain'"
+__version__ = "0.6 Alpha - '27'"
 
 class Car():
     def __init__(self, ID, streets, tick_waiting, current=None, s_0=2.0, T=1.5, a=0.3, b=3.0):  # May be expanded
