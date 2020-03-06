@@ -3,8 +3,6 @@ import main
 import threading
 import time
 
-print(main.bus_stops)
-
 # variables that are accessible from anywhere
 data = {}
 
@@ -19,7 +17,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html", bus_stops=main.bus_stops)
+    return render_template("index.html", bus_stops=main.bus_stops, center=main.center)
 
 @app.route("/update")
 def update():

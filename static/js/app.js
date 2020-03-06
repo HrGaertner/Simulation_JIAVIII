@@ -1,14 +1,11 @@
-var map = L.map('map',{ center: [49.4292523,7.7600434], zoom: 15});
+var map = L.map('map',{ center: center, zoom: 15});
 var locate_button = document.getElementById("locate_button");
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors <img src="/static/images/circle.png">'
 }).addTo(map);
 
-alert(bus_stops);
-
 function onEachFeature(feature, layer) {
-    alert(feature.name);
     layer.bindPopup(feature.name);
 }
 
@@ -21,7 +18,7 @@ var geojsonMarkerOptions = {
     fillOpacity: 0.8,
 }
 
-L.geoJSON(bus_stops[4], {
+L.geoJSON(bus_stops, {
     pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);},
     onEachFeature: onEachFeature

@@ -24,9 +24,8 @@ for child in root:
         outer__coord = child.attrib
 
 center = {}
-center["lat"] = float(outer__coord["minlat"]) + (float(outer__coord["maxlat"]) - float(outer__coord["minlat"]))
-center["lon"] = float(outer__coord["minlon"]) + (float(outer__coord["maxlon"]) - float(outer__coord["minlon"
-                                                                                                   ""]))
+center = [float(outer__coord["minlat"]) + (float(outer__coord["maxlat"]) - float(outer__coord["minlat"]))]
+center.append(float(outer__coord["minlon"]) + (float(outer__coord["maxlon"]) - float(outer__coord["minlon"""])))
 
 def tick():
     coord = {"type": "MultiPoint", "coordinates": []}

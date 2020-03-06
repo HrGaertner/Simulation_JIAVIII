@@ -2,7 +2,9 @@
 import random
 
 class Car():
-    def __init__(self, ID, streets, max_v=120, current="1721713218"):  # May be expanded
+    def __init__(self, ID, streets, max_v=120, current=None):  # May be expanded
+        if current == None:
+            current = random.choice(list(streets.nodes.keys()))
         self.id = ID
         self.distance = 0.0
         self.current = current  # First Street
