@@ -136,10 +136,10 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
                 cars={}
                 for i in w.nds:
                     cars[i] = []
-                max_v = 50/3.6
+                max_v = 50#/3.6
                 if ("maxspeed" in w.tags):
                     try:
-                        max_v = float(w.tags["maxspeed"])/3.6
+                        max_v = float(w.tags["maxspeed"])#/3.6
                     except:
                         pass
                 G.add_path(w.nds, id=w.id, max_v = max_v, cars = cars)#Length
@@ -148,10 +148,10 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
                 cars={}
                 for i in w.nds:
                     cars[i] = []
-                max_v = 50/3.6
+                max_v = 50#/3.6
                 if ("maxspeed" in w.tags):
                     try:
-                        max_v = float(w.tags["maxspeed"])/3.6
+                        max_v = float(w.tags["maxspeed"])#/3.6
                     except:
                         pass
                 G.add_path(w.nds, id=w.id, max_v = max_v, cars = cars)#Length
@@ -161,10 +161,10 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
             cars={}
             for i in w.nds:
                 cars[i] = []
-            max_v = 50 / 3.6
+            max_v = 50#/3.6
             if ("maxspeed" in w.tags):
                 try:
-                    max_v = float(w.tags["maxspeed"]) / 3.6
+                    max_v = float(w.tags["maxspeed"])#/ 3.6
                 except:
                     pass
             G.add_path(w.nds, id=w.id, max_v=max_v, cars=cars)  # Length
