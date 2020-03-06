@@ -3,7 +3,7 @@ import random
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
-__version__ = "0.5 Alpha"
+__version__ = "0.5 Alpha - 'Coins in a fountain'"
 
 class Car():
     def __init__(self, ID, streets, max_v=120, current=None):  # May be expanded
