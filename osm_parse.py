@@ -8,7 +8,9 @@ Added :
 - : Cache for avoiding to download again the same osm tiles
 - : distance computation to estimate length of each ways (useful to compute the shortest path)
 Copyright (C) 2017 Loic Messal (github : Tofull)"""
-#Adapted for traffic simulation
+#Adapted and modiffied for traffic simulation
+
+__authors__ = "Loic Messal some parts where modified by Ole Schmidt Matthias Andres and Jonathan Gärtner"
 
 ## Modules
 # Elementary modules

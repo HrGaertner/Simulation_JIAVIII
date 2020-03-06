@@ -3,6 +3,9 @@ import osm_parse  # Other Project files
 import car        # Other Project files
 import xml.etree.ElementTree as ET
 
+__license__ = "GNU GENERAL PUBLIC LICENSE"
+__authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
+
 def create_cars(car_number):  # Creates car_number cars where the ID is the current iteration
     cars = []
     for i in range(car_number):

@@ -1,6 +1,9 @@
 #Class Car will be imported and used in main.py
 import random
 
+__license__ = "GNU GENERAL PUBLIC LICENSE"
+__authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
+
 class Car():
     def __init__(self, ID, streets, max_v=120, current=None):  # May be expanded
         if current == None:

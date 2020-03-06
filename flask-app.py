@@ -3,6 +3,9 @@ import main
 import threading
 import time
 
+__license__ = "GNU GENERAL PUBLIC LICENSE"
+__authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
+
 # variables that are accessible from anywhere
 data = {}
 
