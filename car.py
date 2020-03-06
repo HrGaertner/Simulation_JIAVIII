@@ -24,7 +24,7 @@ class Car():
             self.current = self.next
             while True: #Against oneway roads
                 self.next = random.choice(list(self.streets[self.current].keys()))  # Selects randomly a new street
-                if self.next == former_current:
+                if self.next == former_current and not len(list(self.streets[self.current].keys())) == 1:
                     continue
                 try:
                     self.streets[self.current][self.next]['cars'][self.next].append(self)  # Appends this car to the current street

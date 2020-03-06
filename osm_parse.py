@@ -188,16 +188,19 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
                     example["name"] = "unkown"
                 bus_stops.append(example)
                 example = {"type": "Feature", "name": "test", "geometry": {"type": "Point", "coordinates": []}}
+
+        if "crossing" in n.tags:
+            G.node[n_id]["crossing"] = n.tags["crossing"]
+
+        if "highway" in n.tags and not "crossing" in list(G.node[n_id].keys()):
+            G.node[n_id]["crossing"] = "True"
+
     distance_sum = 0
     ## Estimate the length of each way
     for u,v,d in G.edges(data=True):
         distance = haversine(G.node[u]['lon'], G.node[u]['lat'], G.node[v]['lon'], G.node[v]['lat'], unit_m = True) # Give a realistic distance estimation (neither EPSG nor projection nor reference system are specified)
         distance_sum += distance
         G.add_weighted_edges_from([( u, v, distance)], weight='length')
-
-    for n_id in G.nodes():
-        n = osm.nodes[n_id]
-
 
     return G, bus_stops
 
