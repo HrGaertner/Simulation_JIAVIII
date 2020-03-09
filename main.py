@@ -14,7 +14,7 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
         cars.append(a)
     return cars
 
-car_amount = 5
+car_amount = 2
 
 file = "JiaVII_Sep19.osm"
 

@@ -43,7 +43,7 @@ class Car():
                 break
             self.distance = 0.0
         else:
-            print(self.v, float(self.streets[self.current][self.next]["max_v"]))
+            print(self.id, self.v, float(self.streets[self.current][self.next]["max_v"]))
             a_free = self.a*(1-(self.v / float(self.streets[self.current][self.next]["max_v"]))**4)# See the paper of Martin Treiber
 
             #if self.id == 0:
