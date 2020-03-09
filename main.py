@@ -54,6 +54,6 @@ if __name__ == "__main__":
         while True:  # Updates the simulation
             data = tick()
             time.sleep(1/3)
-            print(str(cars[0].id), str(cars[0].distance), str(cars[0].current))
+            print(str(cars[0].id), str(cars[0].distance), str(cars[0].current), str(cars[0].v))
     #except KeyboardInterrupt:
     #    pass
