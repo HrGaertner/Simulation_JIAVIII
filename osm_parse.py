@@ -10,7 +10,7 @@ Added :
 Copyright (C) 2017 Loic Messal (github : Tofull)"""
 #Adapted and modiffied for traffic simulation
 
-__authors__ = "Loic Messal some parts where modified by Ole Schmidt Matthias Andres and Jonathan Gärtner"
+__authors__ = "Loic Messal some parts where modified by Ole Schmidt, Matthias Andres and Jonathan Gärtner"
 
 ## Modules
 # Elementary modules

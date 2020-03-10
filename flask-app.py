@@ -2,6 +2,9 @@ from flask import Flask, render_template
 import main
 import threading
 import time
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
