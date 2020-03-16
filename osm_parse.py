@@ -129,6 +129,8 @@ def create_streetnetwork(filename_or_stream, only_roads=True):
     for w in osm.ways.values():
         if only_roads and 'highway' not in w.tags:
             continue
+        if w.tags["highway"] in ["cicleway", "path", "corridor", "steps", "bridleway", "footway", "bus_guideway", "raceway", "pedestrian", "service", "sidewalk", "proposed", "construction"]:
+            continue
 
         if ('oneway' in w.tags):
             if (w.tags['oneway'] == 'yes'):
