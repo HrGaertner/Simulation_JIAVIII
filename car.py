@@ -5,7 +5,7 @@ import numpy as np
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
-__version__ = "0.6 Alpha - '27'"
+__version__ = "1.0 - 'Heart's On Fire'"
 
 class Car():
     def __init__(self, ID, streets, tick_waiting, current=None, s_0=2.0, T=1.5, a=0.3, b=3.0, max_v=120):  # May be expanded

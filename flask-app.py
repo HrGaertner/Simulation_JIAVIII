@@ -8,7 +8,7 @@ log.setLevel(logging.ERROR)
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
-__version__ = "0.6 Alpha - '27'"
+__version__ = "1.0 - 'Heart's On Fire'"
 
 # variables that are accessible from anywhere
 data = {}
