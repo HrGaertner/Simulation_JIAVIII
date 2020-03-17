@@ -45,10 +45,7 @@ class Car():
             self.distance = 0.0
         else:
             print(self.id, self.v, float(self.streets[self.current][self.next]["max_v"]))
-            try:
-                a_free = self.a*(1-(self.v / float(self.streets[self.current][self.next]["max_v"]))**4)# See the paper of Martin Treiber
-            except:
-                print('hi')
+            a_free = self.a*(1-(self.v / float(self.streets[self.current][self.next]["max_v"]))**4)# See the paper of Martin Treiber
             if not self.streets[self.current][self.next]['cars'][self.next] == [self]:  # Checks whether there is another car on the street
                 next_car = False
                 event = False
@@ -59,18 +56,14 @@ class Car():
                         event = True
                 if not next_car:
                     self.v += a_free * self.time_step
-                    self.distance += self.v * self.time_step
                 else:
                     gap_s = next_car.distance - self.distance
-                    #if gap_s == 0:
                     gap_s = max(gap_s, 0.1)
                     delta_v = self.v - next_car.v
                     a_int = -self.a*((self.s_0 + max(0, (self.v*self.T + (self.v*delta_v/2/math.sqrt(self.a*self.b)))))/gap_s)**2  # See at the paper of Martin Treiber
                     dv_dt = a_free + a_int
                     self.v += dv_dt * self.time_step
-                    self.distance += self.v * self.time_step
             else:
                 self.v += a_free * self.time_step
-                if np.abs(self.v)> 1e50:
-                    print('wtf')
-                self.distance += self.v * self.time_step
+            self.v = min(max(self.v, 0), 50 / 3.6)
+            self.distance += self.v * self.time_step

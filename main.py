@@ -2,8 +2,6 @@ import time
 import osm_parse  # Other Project files
 import car        # Other Project files
 import xml.etree.ElementTree as ET
-from decimal import *
-getcontext().prec = 40
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
@@ -38,12 +36,12 @@ def tick():
     for c in cars:
         #if c.id == 0:
         #    print(str(c.id) + ' ' + str(c.distance) + ' ' + str(c.current))
-        latA = Decimal(streets.node[c.current]['lat'])
-        lonA = Decimal(streets.node[c.current]['lon'])
-        latB = Decimal(streets.node[c.next]['lat'])
-        lonB = Decimal(streets.node[c.next]['lon'])
+        latA = streets.node[c.current]['lat']
+        lonA = streets.node[c.current]['lon']
+        latB = streets.node[c.next]['lat']
+        lonB = streets.node[c.next]['lon']
         length = streets[c.current][c.next]['length']
-        progress = c.distance / Decimal(length)
+        progress = c.distance / length
         latC = float(latA + (latB - latA) * progress)
         lonC = float(lonA + (lonB - lonA) * progress)
 
