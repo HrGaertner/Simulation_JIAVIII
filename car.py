@@ -1,66 +1,55 @@
-# Class Car will be imported and used in main.py
+#Class Car will be imported and used in main.py
 import random
 import math
 import numpy as np
-import decimal
-decimal.setcontext(decimal.Context(prec=40))
-decimal.setcontext(decimal.Context(traps=[]))
 
 __license__ = "GNU GENERAL PUBLIC LICENSE"
 __authors__ = "Ole Schmidt, Matthias Andres, Jonathan Gärtner"
 __version__ = "0.6 Alpha - '27'"
 
-
-class Car:
-    def __init__(self, id_car, streets, tick_waiting, current=None, s_0=2.0, t=1.5, a=0.3, b=3.0, max_v=120):
-        # May be expanded
-        if current is None:
+class Car():
+    def __init__(self, ID, streets, tick_waiting, current=None, s_0=2.0, T=1.5, a=0.3, b=3.0, max_v=120):  # May be expanded
+        if current == None:
             current = random.choice(list(streets.nodes.keys()))
-        self.id = id_car
-        self.distance = decimal.Decimal(0.0)
+        self.id = ID
+        self.distance = 0.0
         self.current = current  # First Street
         self.streets = streets
         self.next = random.choice(list(self.streets[self.current].keys()))  # Second Street
         self.streets[self.current][self.next]['cars'][self.next].append(self)
-        self.v = decimal.Decimal(0.0)
-        self.max_v = decimal.Decimal(max_v)
-        self.s_0 = decimal.Decimal(s_0)  # Minimum bumper distant
-        self.T = decimal.Decimal(t / tick_waiting)  # Desired safety time headway T when following other vehicles
-        self.a = decimal.Decimal(a / (tick_waiting ** 2))  # Acceleration a in every-day traffic
-        self.b = decimal.Decimal(b / (tick_waiting ** 2))  # Comfortable (braking) deceleration b in every-day traffic
-        self.time_step = decimal.Decimal(tick_waiting)
+        self.v = 0.0
+        self.max_v = max_v
+        self.s_0 = s_0 #Minimum bumper distant
+        self.T = T/tick_waiting# Desired safety time headway T when following other vehicles
+        self.a = a/(tick_waiting**2)# Acceleration a in every-day traffic
+        self.b = b/(tick_waiting**2)# Comfortable (braking) deceleration b in every-day traffic
+        self.time_step = tick_waiting
 
     def drive(self):  # Defines how the car drives and when it changes the street
-        global a_free
-        if self.streets[self.current][self.next]["length"] <= self.distance:
-            # if the car reached the end of its current street, then change it
+        if self.streets[self.current][self.next]["length"] <= self.distance:  # if the car reached the end of its current street, then change it
             try:
-                self.streets[self.current][self.next]["cars"][self.next].remove(self)
-                # Deletes this car from the street
-            except Exception:
+                self.streets[self.current][self.next]["cars"][self.next].remove(self)  # Deletes this car from the street
+            except:
                 print("I am confused")
             former_current = self.current
             self.current = self.next
-            while True:  # Against oneway roads
+            while True: #Against oneway roads
                 self.next = random.choice(list(self.streets[self.current].keys()))  # Selects randomly a new street
                 if self.next == former_current and not len(list(self.streets[self.current].keys())) == 1:
                     continue
                 try:
-                    self.streets[self.current][self.next]['cars'][self.next].append(
-                        self)  # Appends this car to the current street
-                except Exception:
+                    self.streets[self.current][self.next]['cars'][self.next].append(self)  # Appends this car to the current street
+                except:
                     continue
                 break
-            self.distance = decimal.Decimal(0.0)
+            self.distance = 0.0
         else:
             print(self.id, self.v, float(self.streets[self.current][self.next]["max_v"]))
-            #try:
-            a_free = self.a * (1 - (self.v / decimal.Decimal(self.streets[self.current][self.next]["max_v"])) ** 4)
-            # See the paper of Martin Treiber
-            #except Exception:
-            #    print('hi')
-            if not self.streets[self.current][self.next]['cars'][self.next] == [self]:
-                # Checks whether there is another car on the street
+            try:
+                a_free = self.a*(1-(self.v / float(self.streets[self.current][self.next]["max_v"]))**4)# See the paper of Martin Treiber
+            except:
+                print('hi')
+            if not self.streets[self.current][self.next]['cars'][self.next] == [self]:  # Checks whether there is another car on the street
                 next_car = False
                 event = False
                 for c in self.streets[self.current][self.next]['cars'][self.next]:  # Gets the succeeding car
@@ -72,15 +61,16 @@ class Car:
                     self.v += a_free * self.time_step
                     self.distance += self.v * self.time_step
                 else:
-                    gap_s = max(decimal.Decimal(0.1),decimal.Decimal(next_car.distance - self.distance))
-                    delta_v = decimal.Decimal(self.v - next_car.v)
-                    a_int = -self.a * decimal.Decimal((self.s_0 + max(0, (self.v * self.T + (self.v * delta_v / decimal.Decimal(2) / decimal.Decimal(math.sqrt(
-                        self.a * self.b)))))) / gap_s) ** 2  # See at the paper of Martin Treiber
+                    gap_s = next_car.distance - self.distance
+                    #if gap_s == 0:
+                    gap_s = max(gap_s, 0.1)
+                    delta_v = self.v - next_car.v
+                    a_int = -self.a*((self.s_0 + max(0, (self.v*self.T + (self.v*delta_v/2/math.sqrt(self.a*self.b)))))/gap_s)**2  # See at the paper of Martin Treiber
                     dv_dt = a_free + a_int
                     self.v += dv_dt * self.time_step
                     self.distance += self.v * self.time_step
             else:
                 self.v += a_free * self.time_step
-                if np.abs(self.v) > 1e50:
+                if np.abs(self.v)> 1e50:
                     print('wtf')
                 self.distance += self.v * self.time_step
