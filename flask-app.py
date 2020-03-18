@@ -12,13 +12,18 @@ __version__ = "1.0 - 'Heart's On Fire'"
 
 # variables that are accessible from anywhere
 data = {}
+last_website_access = 0.0
+running = True
 
 def Simulation():
     global data
+    global running
     while True:  # Updates the simulation
+        if last_website_access + 3 <= time.time():
+            running = False
+            break
         data = main.tick()
         time.sleep(0.3)
-        #main.time.sleep(1/60)
 
 app = Flask(__name__)
 
@@ -28,7 +33,16 @@ def index():
 
 @app.route("/update")
 def update():
-    return data
+    global running
+    global last_website_access
+    last_website_access = time.time()
+    if running:
+        return data
+    else:
+        simu = threading.Thread(target=Simulation)
+        simu.start()
+        running = True
+        return data
 
 if __name__ == "__main__":
     # lock to control access to variable
