@@ -15,7 +15,8 @@ data = {}
 last_website_access = 0.0
 running = True
 
-def Simulation():
+
+def simulation():
     global data
     global running
     while True:  # Updates the simulation
@@ -25,11 +26,14 @@ def Simulation():
         data = main.tick()
         time.sleep(0.3)
 
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
     return render_template("index.html", bus_stops=main.bus_stops, center=main.center)
+
 
 @app.route("/update")
 def update():
@@ -39,16 +43,17 @@ def update():
     if running:
         return data
     else:
-        simu = threading.Thread(target=Simulation)
+        simu = threading.Thread(target=simulation)
         simu.start()
         running = True
         return data
+
 
 if __name__ == "__main__":
     # lock to control access to variable
     dataLock = threading.Lock()
     # thread handler
-    simu = threading.Thread(target=Simulation)
+    simu = threading.Thread(target=simulation)
     simu.start()
 
     app.run(debug=True)
