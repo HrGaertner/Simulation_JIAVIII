@@ -18,7 +18,7 @@ def create_cars(car_number):  # Creates car_number cars where the ID is the curr
 
 car_amount = 15
 
-file = "JiaVII_Sep19.osm"
+file = "kaiserslautern.osm"
 
 streets, bus_stops = osm_parse.create_streetnetwork(file)  # Creates streetnetwork
 cars = create_cars(car_amount)  # Creates cars
