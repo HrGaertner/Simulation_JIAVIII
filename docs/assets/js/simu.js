@@ -1,10 +1,10 @@
 var map = L.map('map',{ center: center, zoom: 15});
-var locate_button = document.getElementById("locate_button");
+//var locate_button = document.getElementById("locate_button");
 
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaHJnYWVydG5lciIsImEiOiJja2IyajYzMmIwOGgxMzFzMGFrcjVsd3R1In0.m3g_tfRrzVvC1mrIiMXhQA', {
- attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a> <img src="/static/images/circle.png">'
+ attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a> <img src="images/circle.png">'
 }).addTo(map);
-
+/*
 function onEachFeature(feature, layer) {
     layer.bindPopup(feature.name);
 }
@@ -61,4 +61,4 @@ var realtime = L.realtime({
     }
 
     // call locate every 3 seconds... forever
-    setInterval(locate, 3000);
+    setInterval(locate, 3000);*/
