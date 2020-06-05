@@ -29,7 +29,7 @@ var realtime = L.realtime({
     crossOrigin: true,
     type: 'json'
 }, {
-    interval: 500
+    interval: 500, onEachFeature(f, l) {}
 }).addTo(map);
 
 // placeholders for the L.marker and L.circle representing user's current position and accuracy
