@@ -1,5 +1,5 @@
 # Simulation_JIAVIII
-Developing the simulation for the JIAVIII Project at the (HHG)[https://hhg-kl.de]
+Developing the simulation for the JIAVIII Project at the [HHG](https://hhg-kl.de)
 
 The project has finished now but we are eager to realize this project. Just contact us e.g. in a issue!
 
